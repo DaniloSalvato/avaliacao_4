@@ -1,14 +1,17 @@
 package com.pb.prova.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.pb.prova.constants.Ideologia;
 import com.pb.prova.entities.Partido;
+import com.pb.prova.serializer.LocalDateSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.time.LocalDate;
+
 
 @Data
 @AllArgsConstructor
@@ -19,7 +22,8 @@ public class PartidoDto {
     private String nomeDoPartido;
     private String sigla;
     private Ideologia ideologia;
-    private Date dataDeFuncadacao;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate dataDeFuncadacao;
 
     public PartidoDto(Partido partido){
         this.id = partido.getId();
@@ -29,7 +33,7 @@ public class PartidoDto {
         this.dataDeFuncadacao = partido.getDataDeFundacao();
     }
 
-    public static List<PartidoDto> converter(List<Partido> partidos) {
-        return partidos.stream().map(PartidoDto::new).collect(Collectors.toList());
+    public static Page<PartidoDto> converter(PageImpl<Partido> partidos) {
+        return partidos.map(PartidoDto::new);
     }
 }
