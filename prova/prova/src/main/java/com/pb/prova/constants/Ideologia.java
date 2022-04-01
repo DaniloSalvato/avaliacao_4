@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 public enum Ideologia {
 
     DIREITA("direita"),
-    ESQUEDA("esquerda"),
+    ESQUERDA("esquerda"),
     CENTRO("centro");
 
     Ideologia(String value) {

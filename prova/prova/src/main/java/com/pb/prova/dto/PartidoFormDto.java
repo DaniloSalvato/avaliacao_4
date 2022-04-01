@@ -1,11 +1,12 @@
 package com.pb.prova.dto;
 
 import com.pb.prova.constants.Ideologia;
-import com.sun.istack.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data

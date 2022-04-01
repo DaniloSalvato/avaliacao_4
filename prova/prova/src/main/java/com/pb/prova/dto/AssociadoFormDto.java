@@ -2,8 +2,9 @@ package com.pb.prova.dto;
 
 import com.pb.prova.constants.Cargo;
 import com.pb.prova.constants.Sexo;
-import com.sun.istack.NotNull;
 
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class AssociadoFormDto {
