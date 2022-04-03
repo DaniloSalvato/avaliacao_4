@@ -3,6 +3,8 @@ package com.pb.prova.controller;
 import com.pb.prova.constants.Cargo;
 import com.pb.prova.dto.AssociadoDto;
 import com.pb.prova.dto.AssociadoFormDto;
+import com.pb.prova.dto.RelacionamentoFormDto;
+import com.pb.prova.entities.Associado;
 import com.pb.prova.service.AssociadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,6 +41,12 @@ public class AssociadoController {
         return associadoService.cadastrar(associadoFormDto, uriBuilder);
     }
 
+    @PostMapping("/partidos")
+    @Transactional
+    public ResponseEntity<?> RelacionaAssociadoAoPartido(@RequestBody @Valid RelacionamentoFormDto relacionamentoFormDto, UriComponentsBuilder uriBuilder){
+        return ResponseEntity.created(associadoService.RelacionaAssociadoAoPartido(relacionamentoFormDto,uriBuilder)).body("Cadastrado!");
+    }
+
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<AssociadoDto> atualizarPorId(@PathVariable Long id, @RequestBody @Valid AssociadoFormDto associadoFormDto){
@@ -47,7 +55,13 @@ public class AssociadoController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<?> excluirPorId(@PathVariable Long id){
+    public ResponseEntity<?> excluiPorId(@PathVariable Long id){
         return associadoService.excluirPorId(id);
+    }
+
+    @DeleteMapping("/{idAssociado}/partidos/{idPartido}")
+    @Transactional
+    public ResponseEntity<?> excluiAssociadoDoPartido(@PathVariable Long idAssociado, @PathVariable Long idPartido){
+        return ResponseEntity.ok().body(associadoService.excluiAssociadoDoPartido(idAssociado,idPartido));
     }
 }

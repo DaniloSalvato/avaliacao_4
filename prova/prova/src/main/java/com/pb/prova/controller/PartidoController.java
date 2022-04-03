@@ -1,6 +1,7 @@
 package com.pb.prova.controller;
 
 import com.pb.prova.constants.Ideologia;
+import com.pb.prova.dto.AssociadoDto;
 import com.pb.prova.dto.PartidoDto;
 import com.pb.prova.dto.PartidoFormDto;
 import com.pb.prova.service.PartidoService;
@@ -15,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/partidos")
@@ -24,13 +26,18 @@ public class PartidoController {
     PartidoService partidoService;
 
     @GetMapping
-    public Page<PartidoDto> listarTodos(@RequestParam(required = false) Ideologia ideologia,@PageableDefault(page = 0, size = 10, sort="id", direction = Sort.Direction.ASC) Pageable ordenacao){
-        return partidoService.listarTodos(ideologia, ordenacao);
+    public ResponseEntity<Page<PartidoDto>> listarTodos(@RequestParam(required = false) Ideologia ideologia,@PageableDefault(page = 0, size = 10, sort="id", direction = Sort.Direction.ASC) Pageable ordenacao){
+        return ResponseEntity.ok().body(partidoService.listarTodos(ideologia, ordenacao));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<PartidoDto> listarPorId(@PathVariable Long id){
         return partidoService.listarPorId(id);
+    }
+
+    @GetMapping("/{id}/associados")
+    public ResponseEntity<List<AssociadoDto>> listarAssociadosPorPartido(@PathVariable Long id){
+        return ResponseEntity.ok().body(partidoService.listarAssociadosPorPartido(id));
     }
 
     @PostMapping

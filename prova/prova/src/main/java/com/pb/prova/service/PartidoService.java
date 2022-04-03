@@ -1,9 +1,12 @@
 package com.pb.prova.service;
 
 import com.pb.prova.constants.Ideologia;
+import com.pb.prova.dto.AssociadoDto;
 import com.pb.prova.dto.PartidoDto;
 import com.pb.prova.dto.PartidoFormDto;
+import com.pb.prova.entities.Associado;
 import com.pb.prova.entities.Partido;
+import com.pb.prova.repository.AssociadoRepository;
 import com.pb.prova.repository.PartidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,12 +20,16 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PartidoService {
 
     @Autowired
     PartidoRepository partidoRepository;
+
+    @Autowired
+    AssociadoRepository associadoRepository;
 
     public Page<PartidoDto> listarTodos(Ideologia ideologia, Pageable ordenacao) {
 
@@ -41,6 +48,11 @@ public class PartidoService {
             return ResponseEntity.ok(new PartidoDto(partido.get()));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    public List<AssociadoDto> listarAssociadosPorPartido(Long id){
+        List<Associado> associados = associadoRepository.findByPartidoId(id);
+        return associados.stream().map(e -> new AssociadoDto(e)).collect(Collectors.toList());
     }
 
     public ResponseEntity<PartidoDto> cadastrar(PartidoFormDto partidoFormDto, UriComponentsBuilder uriBuilder) {

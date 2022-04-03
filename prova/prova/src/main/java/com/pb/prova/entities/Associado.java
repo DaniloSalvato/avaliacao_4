@@ -33,6 +33,10 @@ public class Associado{
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
 
+    @ManyToOne
+    @JoinColumn(name="partido_id")
+    private Partido partido;
+
     public Associado(String nome, LocalDate dataDeNascimento, Cargo cargo, Sexo sexo) {
         this.nome = nome;
         this.dataDeNascimento = dataDeNascimento;

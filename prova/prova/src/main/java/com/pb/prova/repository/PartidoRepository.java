@@ -12,4 +12,5 @@ import java.util.List;
 public interface PartidoRepository extends JpaRepository<Partido, Long> {
 
     List<Partido> findByIdeologia(Ideologia ideologia, Pageable ordenacao);
+
 }
