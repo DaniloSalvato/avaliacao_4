@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ProvaApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void test() {
 	}
 
 }
