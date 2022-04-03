@@ -1,4 +1,4 @@
-package com.pb.prova.config;
+package com.pb.prova.config.Validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
